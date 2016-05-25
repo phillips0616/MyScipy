@@ -144,3 +144,42 @@ def covariance(matrix):
     product = mult_matrices(matrix_transpose(difference), difference)
     scaled = scale_matrix(1 / len(matrix), product)
     return scaled
+    
+#finds pivot placement for Gauss-Jordan elimination
+#checks for largest absolute value in a column which will be the pivot index
+#returns pivot index
+def find_pivot(matrix):
+    largest = 0
+    pivot = 0
+    for r in range(len(matrix)):
+        if abs(matrix[r][0]) > abs(largest):
+            largest = matrix[r][0]
+            pivot = r
+    return pivot
+
+#interchanges two rows in a matrix for Gauss-Jordan elimination
+#returns resulting matrix after row interchange
+def interchange_rows(matrix, row_to_switch, row ):
+    temp = matrix[row_to_switch]
+    matrix[row_to_switch] = matrix[row]
+    matrix[row] = temp
+    return matrix
+
+#returns the diagional entries of a matrix as a list
+def get_diag(matrix):
+    diag = []
+    for r in range(len(matrix)):
+        for s in range(len(matrix[r])):
+            if r == s:
+                diag.append(matrix[r][s])
+                break
+    return diag
+
+#calculates the trace of a matrix
+#returns the trace as an integer or float
+def trace(matrix):
+    diag = get_diag(matrix)
+    sum = 0
+    for entry in diag:
+        sum += entry
+    return sum
